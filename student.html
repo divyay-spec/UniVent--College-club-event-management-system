@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Panel - Dashboard</title>
+    <link rel="stylesheet" href="static/student.css">
+</head>
+<body>
+    <header>
+        <img align="left" 
+         src="static/mit final.png" alt="" width="300">
+        <h1>Student Panel - Dashboard</h1>
+        <a href="/logout" class="logout-button">Logout</a>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Navigation</h2>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Upcoming Events</a></li>
+                <li><a href="#">Club Information</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <section class="dashboard-overview">
+                <div class="overview-box">
+                    <h3>Total Events</h3>
+                    <p>10</p>
+                </div>
+                <div class="overview-box">
+                    <h3>Registered Events</h3>
+                    <p>2</p>
+                </div>
+                <div class="overview-box">
+                    <h3>Total Clubs</h3>
+                    <p>5</p>
+                </div>
+            </section>
+  <section>
+      <h2>Upcoming Events</h2>
+      <table>
+    <thead>
+        {% if events %}
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if events %}
+        {% for event in events %}
+        <tr>
+            <td>{{ event.event_name }}</td>
+            <td>{{ event.date }}</td>
+            <td class="register-button">
+                {% if event.event_id in registered_event_ids %}
+                    <button disabled style="background-color: #2ecc71;">Registered ✅</button>
+                {% else %}
+                    <button onclick="registerEvent('{{ event.event_id }}', this)">Register for Event</button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">No upcoming events</td>
+            </tr>
+        {% endif %}
+    </tbody>
+    </table>
+        {% else %}
+            <tr>
+                <td colspan="3">No upcoming events found.</td>
+            </tr>
+        {% endif %}
+                </section>
+        <div>
+            <h2>📋 My Registered Events</h2>
+{% if registered_events %}
+    <table>
+        <thead>
+            <tr>
+                <th>Club</th>
+                <th>Event</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reg in registered_events %}
+            <tr>
+                <td>{{ reg.club_name }}</td>
+                <td>{{ reg.event_name }}</td>
+                <td>{{ reg.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You haven’t registered for any events yet.</p>
+{% endif %}
+
+        </div>
+
+            <!-- <section>
+                <h2>Club Information</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Club Name</th>
+                            <th>President</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CSI Club</td>
+                            <td>Rahul Ravi</td>
+                            <td>Computer Science and IT club.</td>
+                        </tr>
+                        <tr>
+                            <td>Robotics Club</td>
+                            <td>Anjali Sharma</td>
+                            <td>Robotics and automation club.</td>
+                        </tr>
+                        <tr>
+                            <td>Data Science Club</td>
+                            <td>Priya shah</td>
+                            <td>Data science and analytics club.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section> -->
+
+            <h2>🏛️ Our Clubs:</h2>
+{% if clubs %}
+    <div class="clubs-container">
+        {% for club in clubs %}
+            <div class="club-card">
+                <h3>{{ club.club_name }}</h3>
+                <p><strong>Description:</strong> {{ club.description }}</p>
+                <p><strong>President:</strong> {{ club.president_name }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No club information available.</p>
+{% endif %}
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Student Panel</p>
+    </footer>
+
+    <script src="static\student.js"></script>
+</body>
+</html>

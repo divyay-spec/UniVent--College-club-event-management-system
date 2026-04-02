@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Dashboard</title>
+    <link rel="stylesheet" href="static\admin.css">
+</head>
+<body>
+    <header>
+        <img align="left" 
+         src="static\mit final.png" alt="" width="300">
+        <h1>Admin Panel - Dashboard</h1>
+        <a href="/logout" class="logout-button">Logout</a>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Navigation</h2>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Event Requests</a></li>
+                <li><a href="#">Available Venues</a></li>
+                <li><a href="#">Available Resources</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <section class="dashboard-overview">
+                <div class="overview-box">
+                    <h3>Total Events</h3>
+                    <p>10</p>
+                </div>
+                <div class="overview-box">
+                    <h3>Pending Requests</h3>
+                    <p>4</p>
+                </div>
+                <div class="overview-box">
+                    <h3>Available Venues</h3>
+                    <p>5</p>
+                </div>
+            </section>
+
+            <section class="event-approvals">
+                <h2>Pending Event Requests</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Club</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingEventsTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </section>
+            
+            <section class="resource-approvals">
+                <h2>Pending Resource Requests</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Resource</th>
+                            <th>Requested Qty</th>
+                            <th>Available Qty</th>
+                            <th>Requested By</th>
+                            <th>Date</th>
+                            <th>Allocate</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resourceRequestsBody">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </section>
+            
+            <section class="hall-bookings">
+                <h2>Pending Hall Booking Requests</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Club</th>
+                            <th>Hall</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hallBookingBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- <section class="club-reports">
+                <h2>Club Participation Reports</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Club Name</th>
+                            <th>Total Events</th>
+                            <th>Total Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clubReportsBody">
+                        <!-- Populated by JS -->
+                    <!-- </tbody>
+                </table>
+            </section> --> -->
+            <section class="club-reports">
+                <h2>📊 Club Participation Reports</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Club Name</th>
+                            <th>Total Events</th>
+                            <th>Approved</th>
+                            <th>Pending</th>
+                            <th>Rejected</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clubReportsBody">
+                        <!-- JS will populate rows -->
+                    </tbody>
+                </table>
+            </section>
+            
+
+            
+            <section>
+                <h2>Available Venues</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Venue Name</th>
+                            <th>Capacity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Auditorium</td>
+                            <td>500</td>
+                            <td>Available</td>
+                        </tr>
+                        <tr>
+                            <td>Seminar Hall</td>
+                            <td>200</td>
+                            <td>Available</td>
+                        </tr>
+                        <tr>
+                            <td>Conference Room</td>
+                            <td>50</td>
+                            <td>Booked</td>
+                        </tr>
+                        <tr>
+                            <td>Computer Lab</td>
+                            <td>100</td>
+                            <td>Available</td>
+                        </tr>
+                        <tr>
+                            <td>Open Air Theatre</td>
+                            <td>1000</td>
+                            <td>Available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Available Resources</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resource Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Projectors</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>Microphones</td>
+                            <td>15</td>
+                        </tr>
+                        <tr>
+                            <td>Sound Systems</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Whiteboards</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>Laptops</td>
+                            <td>20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Admin Panel</p>
+    </footer>
+
+    <script src="static\admin.js"></script>
+</body>
+</html>

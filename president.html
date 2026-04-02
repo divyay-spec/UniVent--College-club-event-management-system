@@ -1,0 +1,204 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Dashboard</title>
+    <link rel="stylesheet" href="static\president.css">
+</head>
+<body>
+    <header>
+        <img align="left" 
+         src="static\final mit logo.png" alt="" width="300">
+        <h1>Club President's Dashboard</h1>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Navigation</h2>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Manage Events</a></li>
+                <li><a href="#">Participants</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Club Members</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <section class="dashboard">
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3069/3069175.png" alt="Event Icon">
+                    <h3>Upcoming Hackathons</h3>
+                    <p>CodeWar 2025 - March 10</p>
+                    <p>HackFest 2025 - April 15</p>
+                </div>
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Participants Icon">
+                    <h3>Total Participants</h3>
+                    <p>245 Registered</p>
+                </div>
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1006/1006555.png" alt="Members Icon">
+                    <h3>Manage Members</h3>
+                    <p>View & Update Roles</p>
+                </div>
+                <div class="card">
+                    <img src="static/seo-report.png" alt="Reports Icon">
+                    <h3>Generate Reports</h3>
+                    <p>Event & Data Insights</p>
+                </div>
+            </section>
+            <body data-club-id="{{ club_id }}">
+                
+                
+                <section class="created-events">
+                    <h2>Created Events</h2>
+                    <ul id="createdEventsList"></ul>
+                </section>
+                
+
+            <section class="event-register-form">
+                <h2>Register New Event</h2>
+                <input type="text" id="eventName" placeholder="Event Name">
+                <input type="date" id="eventDate" placeholder="Event Date">
+                <textarea id="eventDescription" placeholder="Event Description"></textarea>
+                <button onclick="registerEvent()">Register Event</button>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Club Dashboard</p>
+    </footer>
+
+    <script src="static\president.js"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='president.css') }}">
+</head>
+<!-- ✅ Only one body tag, with dynamic club_id -->
+<body data-club-id="{{ club_id }}">
+    <header>
+        <img align="left" src="{{ url_for('static', filename='mit final.png') }}" alt="MIT Logo" width="300">
+        <h1>Club President's Dashboard</h1>
+        <a href="/logout" class="logout-button">Logout</a>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Navigation</h2>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#newevents">Manage Events</a></li>
+                <li><a href="#events">Participants</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#managemembers">Club Members</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <section class="dashboard">
+                    <!-- <div class="card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3069/3069175.png" alt="Event Icon">
+                        <h3>Upcoming Hackathons</h3>
+                        <p>CodeWar 2025 - March 10</p>
+                        <p>HackFest 2025 - April 15</p> -->
+                        <div class="card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3069/3069175.png" alt="Event Icon">
+                            <h3>Upcoming Events</h3>
+                            {% if events %}
+                                {% for event in events %}
+                                    <p>{{ event.event_name }} - {{ event.date }}</p>
+                                {% endfor %}
+                            {% else %}
+                                <p>No upcoming events</p>
+                            {% endif %}
+                        </div>
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Participants Icon">
+                    <h3>Total Participants</h3>
+                    <p>245 Registered</p>
+                </div>
+                <a href="#managemembers" class="card-link">
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1006/1006555.png" alt="Members Icon">
+                    <h3>Manage Members</h3>
+                    <p>View & Update Roles</p>
+                </div>
+                </a>
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png" alt="Reports Icon">
+                    <h3>Generate Reports</h3>
+                    <p>Event & Data Insights</p>
+                </div>
+            </section>
+
+            <section class="event-register-form" id="newevents">
+                <h2>Register New Event</h2>
+                <input type="text" id="eventName" placeholder="Event Name">
+                <input type="date" id="eventDate" placeholder="Event Date">
+                <textarea id="eventDescription" placeholder="Event Description"></textarea>
+                <!-- ✅ Removed the wrong argument -->
+                <button onclick="registerEvent()">Register Event</button>
+            </section>
+            <section class="event-list" id="events">
+                <h2>My Created Events</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsTableBody">
+                        <!-- Events will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </section>
+            <section class="club-members" id="managemembers">
+                <h2>Manage Club Members</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Update</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="membersTableBody">
+                        <!-- Loaded via JS -->
+                    </tbody>
+                </table>
+            
+                <h3>Add New Member</h3>
+                <input type="email" id="newMemberEmail" placeholder="Enter student email">
+                <select id="newMemberRole">
+                    <option>Member</option>
+                    <option>Coordinator</option>
+                    <option>Vice President</option>
+                </select>
+                <button onclick="addClubMember()">Add Member</button>
+            </section>
+            
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Club Dashboard</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='president.js') }}"></script>
+</body>
+</html>
